@@ -1,28 +1,29 @@
 {
-	"name": "poll-discord-bot",
-	"version": "1.0.0",
-	"description": "Discord bot for creating polls",
-	"main": "index.js",
-	"scripts": {
-		"build": "tsc",
-		"start": "npm run build && node dist/index.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [],
-	"author": "Christoph Wiese",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/eslint": "^8.37.0",
-		"@types/node": "^18.15.11",
-		"@types/prettier": "^2.7.2",
-		"@typescript-eslint/eslint-plugin": "^5.59.0",
-		"@typescript-eslint/parser": "^5.59.0",
-		"eslint": "^8.39.0",
-		"prettier": "^2.8.8",
-		"typescript": "^5.0.4"
-	},
-	"dependencies": {
-		"discord.js": "^14.9.0",
-		"dotenv": "^16.0.3"
-	}
+  "name": "poll-schmoll",
+  "version": "1.0.0",
+  "description": "Discord bot for creating polls",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "lint": "npx eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Christoph Wiese",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/eslint": "^8.37.0",
+    "@types/node": "^18.15.11",
+    "@types/prettier": "^2.7.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "eslint": "^8.39.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3"
+  }
 }
