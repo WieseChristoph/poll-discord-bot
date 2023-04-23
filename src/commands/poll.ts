@@ -146,7 +146,7 @@ const PollCommand: Command = {
         .setMaxLength(80)
         .setRequired(false),
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+    .setDefaultMemberPermissions(PermissionFlagsBits.UseApplicationCommands),
   execute: async (interaction) => {
     try {
       if (!interaction.inGuild()) {
