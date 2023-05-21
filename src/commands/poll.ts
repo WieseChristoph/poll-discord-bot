@@ -173,13 +173,17 @@ const PollCommand: Command = {
       const embed = new EmbedBuilder()
         .setColor("#0099ff")
         .setTitle(
-          interaction.options.get("question", true).value?.toString() ?? null,
+          `**${
+            interaction.options.get("question", true).value?.toString() ?? ""
+          }**`,
         )
         .setAuthor({
           name: interaction.user.username,
           iconURL: interaction.user.avatarURL() ?? undefined,
         })
-        .setDescription("Vote by clicking the buttons below.")
+        .setDescription(
+          "*Vote by clicking the buttons below.\n(remove the vote by clicking the button again)*",
+        )
         .setFooter({
           text: `Presented by ${interaction.client.user.username}`,
           iconURL: interaction.client.user.avatarURL() ?? undefined,
@@ -187,7 +191,7 @@ const PollCommand: Command = {
         .setTimestamp()
         .addFields([
           {
-            name: "Most voted",
+            name: "__Most voted__",
             value: "-",
             inline: true,
           },
@@ -197,7 +201,7 @@ const PollCommand: Command = {
             inline: true,
           },
           {
-            name: "Multi-Vote",
+            name: "__Multi-Vote__",
             value:
               (interaction.options.get("multi-vote", true).value?.toString() ??
                 "false") === "true"
@@ -213,7 +217,7 @@ const PollCommand: Command = {
         ])
         .addFields(
           interaction.options.data.slice(2).map((option) => ({
-            name: `0 - ${option.value?.toString() ?? ""}`,
+            name: `**${option.value?.toString() ?? ""}**\n\`0 Votes\``,
             value: "-",
             inline: true,
           })),

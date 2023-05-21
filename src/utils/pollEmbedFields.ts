@@ -2,7 +2,7 @@ import type { APIEmbedField } from "discord.js";
 import { getLineCount } from "./helpers";
 
 export function getName(field: APIEmbedField) {
-  return field.name.match(/(\d*\s-\s)(.*)/)?.[2];
+  return field.name.match(/\*\*(.*)\*\*\n/)?.[1];
 }
 
 export function isMutliVote(fields: APIEmbedField[]) {
@@ -14,7 +14,7 @@ export function getUserVotes(fields: APIEmbedField[], userId: string) {
 }
 
 export function getVoteCount(field: APIEmbedField) {
-  return Number(field.name.match(/\d*/)?.[0]);
+  return Number(field.name.match(/.*\n\`(\d*) Votes\`/)?.[1]);
 }
 
 export function getMostVoted(fields: APIEmbedField[]) {
@@ -38,8 +38,8 @@ export function addVote(field: APIEmbedField, userId: string) {
   return {
     ...field,
     name: field.name.replace(
-      new RegExp(currentVoteCount.toString()),
-      (currentVoteCount + 1).toString(),
+      new RegExp(`(.*\n\`)(${currentVoteCount.toString()})( Votes\`)`),
+      `$1${(currentVoteCount + 1).toString()}$3`,
     ),
     value: `${field.value !== "-" ? `${field.value}\n` : ""}<@${userId}>`,
   };
@@ -51,8 +51,8 @@ export function removeVote(field: APIEmbedField, userId: string) {
   return {
     ...field,
     name: field.name.replace(
-      new RegExp(currentVoteCount.toString()),
-      (currentVoteCount - 1).toString(),
+      new RegExp(`(.*\n\`)(${currentVoteCount.toString()})( Votes\`)`),
+      `$1${(currentVoteCount - 1).toString()}$3`,
     ),
     value: field.value.replace(
       new RegExp(`(\\n)?<@${userId}>`),
