@@ -1,8 +1,8 @@
 <div align="center">
-  <p style="font-size: 50px">
+  <h1>
     <img src=".github/PollSchmoll.png" width="50px" height="50px" />
     Poll Schmoll
-  </p>
+  </h1>
   <p>A simple discord bot to create polls</p>
   <img src="https://img.shields.io/github/checks-status/WieseChristoph/poll-schmoll/main?style=for-the-badge" />
 </div>
