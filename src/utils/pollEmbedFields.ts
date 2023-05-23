@@ -14,7 +14,7 @@ export function getUserVotes(fields: APIEmbedField[], userId: string) {
 }
 
 export function getVoteCount(field: APIEmbedField) {
-  return Number(field.name.match(/.*\n\`(\d*) Votes\`/)?.[1]);
+  return Number(field.name.match(/.*\n\`(\d*).*\`/)?.[1]);
 }
 
 export function getMostVoted(fields: APIEmbedField[]) {
@@ -38,7 +38,7 @@ export function addVote(field: APIEmbedField, userId: string) {
   return {
     ...field,
     name: field.name.replace(
-      new RegExp(`(.*\n\`)(${currentVoteCount.toString()})( Votes\`)`),
+      new RegExp(`(.*\n\`)(${currentVoteCount.toString()})(.*\`)`),
       `$1${(currentVoteCount + 1).toString()}$3`,
     ),
     value: `${field.value !== "-" ? `${field.value}\n` : ""}<@${userId}>`,
@@ -51,7 +51,7 @@ export function removeVote(field: APIEmbedField, userId: string) {
   return {
     ...field,
     name: field.name.replace(
-      new RegExp(`(.*\n\`)(${currentVoteCount.toString()})( Votes\`)`),
+      new RegExp(`(.*\n\`)(${currentVoteCount.toString()})(.*\`)`),
       `$1${(currentVoteCount - 1).toString()}$3`,
     ),
     value: field.value.replace(
@@ -59,4 +59,26 @@ export function removeVote(field: APIEmbedField, userId: string) {
       field.value === `<@${userId}>` ? "-" : "",
     ),
   };
+}
+
+export function getCurrentPeopleVoted(footerText: string) {
+  return Number(footerText.match(/(\d*).*/)?.[1]);
+}
+
+export function addPeopleVoted(footerText: string) {
+  const currentPeopleVoted = getCurrentPeopleVoted(footerText);
+
+  return footerText.replace(
+    new RegExp(`(${currentPeopleVoted.toString()})(.*)`),
+    `${(currentPeopleVoted + 1).toString()}$2`,
+  );
+}
+
+export function removePeopleVoted(footerText: string) {
+  const currentPeopleVoted = getCurrentPeopleVoted(footerText);
+
+  return footerText.replace(
+    new RegExp(`(${currentPeopleVoted.toString()})(.*)`),
+    `${(currentPeopleVoted - 1).toString()}$2`,
+  );
 }

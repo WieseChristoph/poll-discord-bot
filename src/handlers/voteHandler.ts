@@ -6,6 +6,8 @@ import {
   getUserVotes,
   isMutliVote,
   removeVote,
+  addPeopleVoted,
+  removePeopleVoted,
 } from "../utils/pollEmbedFields";
 
 export function handleVote(embed: Embed, userId: string, buttonLabel: string) {
@@ -13,17 +15,25 @@ export function handleVote(embed: Embed, userId: string, buttonLabel: string) {
   const multiVote = isMutliVote(fields);
   const prevUserVotes = getUserVotes(fields, userId);
 
+  let footerText = embed.footer?.text ?? "";
+
   const fieldsWithVote = fields.map((field) => {
     if (getName(field) !== buttonLabel) return field;
 
     if (prevUserVotes.length > 0) {
       if (prevUserVotes.includes(field)) {
+        if (prevUserVotes.length === 1) {
+          footerText = removePeopleVoted(footerText);
+        }
+
         return removeVote(field, userId);
       }
 
       if (!multiVote) {
         throw new Error("You can only vote once!");
       }
+    } else {
+      footerText = addPeopleVoted(footerText);
     }
 
     return addVote(field, userId);
@@ -39,5 +49,7 @@ export function handleVote(embed: Embed, userId: string, buttonLabel: string) {
     inline: true,
   };
 
-  return new EmbedBuilder(embed.data).setFields(fieldsWithVote);
+  return new EmbedBuilder(embed.data)
+    .setFields(fieldsWithVote)
+    .setFooter({ text: footerText });
 }

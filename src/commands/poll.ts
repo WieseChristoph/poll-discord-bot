@@ -184,11 +184,6 @@ const PollCommand: Command = {
         .setDescription(
           "*Vote by clicking the buttons below.\n(remove the vote by clicking the button again)*",
         )
-        .setFooter({
-          text: `Presented by ${interaction.client.user.username}`,
-          iconURL: interaction.client.user.avatarURL() ?? undefined,
-        })
-        .setTimestamp()
         .addFields([
           {
             name: "__Most voted__",
@@ -221,7 +216,11 @@ const PollCommand: Command = {
             value: "-",
             inline: true,
           })),
-        );
+        )
+        .setFooter({
+          text: `0 people voted - Poll created `,
+        })
+        .setTimestamp();
 
       // create action rows
       const actionRows: ActionRowBuilder<ButtonBuilder>[] = [];
