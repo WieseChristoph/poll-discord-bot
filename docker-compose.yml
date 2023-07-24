@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  pollschmoll:
+    container_name: pollschmoll
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    restart: always
+    environment:
+      - DISCORD_BOT_TOKEN=
+      - DISCORD_CLIENT_ID=
